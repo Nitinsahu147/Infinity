@@ -2,146 +2,74 @@ import { SignIn } from "@clerk/nextjs";
 
 export default function Page() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#f8fafc",
-        display: "flex",
-        fontFamily: "inherit",
-      }}
-    >
+    <div className="min-h-screen bg-[#0A0A0A] flex">
       {/* Left panel — branding */}
-      <div
-        style={{
-          display: "none",
-          flex: "1",
-          backgroundColor: "#111827",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "48px",
-        }}
-        className="left-panel"
-      >
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <div
-            style={{
-              width: "32px",
-              height: "32px",
-              borderRadius: "8px",
-              backgroundColor: "#ffffff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <span style={{ color: "#111827", fontSize: "14px", fontWeight: 700 }}>D</span>
+      <div className="hidden md:flex flex-1 flex-col justify-between p-12 bg-[#0A0A0A] border-r border-zinc-800/60 relative overflow-hidden">
+        {/* Subtle grid background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
+        {/* Radial glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10">
+          {/* Logo */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-zinc-100 flex items-center justify-center">
+              <span className="text-zinc-900 text-sm font-bold">N</span>
+            </div>
+            <span className="text-zinc-100 text-base font-semibold tracking-tight">NexusAI</span>
           </div>
-          <span style={{ color: "#ffffff", fontSize: "16px", fontWeight: 600 }}>DevDash</span>
         </div>
 
         {/* Center quote */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-          <div
-            style={{
-              width: "40px",
-              height: "3px",
-              backgroundColor: "#4f46e5",
-              borderRadius: "2px",
-            }}
-          />
-          <p
-            style={{
-              fontSize: "26px",
-              fontWeight: 600,
-              color: "#ffffff",
-              lineHeight: 1.4,
-              margin: 0,
-              maxWidth: "340px",
-            }}
-          >
+        <div className="relative z-10 flex flex-col gap-6">
+          <div className="w-10 h-0.5 bg-indigo-500 rounded-full" />
+          <p className="text-2xl font-semibold text-zinc-100 leading-snug max-w-[340px]">
             "The fastest way to ship multi-tenant apps."
           </p>
-          <p style={{ fontSize: "14px", color: "#9ca3af", margin: 0 }}>
+          <p className="text-sm text-zinc-500">
             Trusted by developers building production-grade SaaS.
           </p>
 
           {/* Stats row */}
-          <div style={{ display: "flex", gap: "32px", marginTop: "8px" }}>
+          <div className="flex gap-8 mt-2">
             {[
               { value: "10k+", label: "Developers" },
               { value: "99.9%", label: "Uptime" },
               { value: "50ms", label: "Avg response" },
             ].map(({ value, label }) => (
-              <div key={label} style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                <span style={{ fontSize: "20px", fontWeight: 700, color: "#ffffff" }}>{value}</span>
-                <span style={{ fontSize: "12px", color: "#6b7280" }}>{label}</span>
+              <div key={label} className="flex flex-col gap-0.5">
+                <span className="text-xl font-bold text-zinc-100">{value}</span>
+                <span className="text-xs text-zinc-600">{label}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Bottom note */}
-        <p style={{ fontSize: "12px", color: "#4b5563", margin: 0 }}>
-          © {new Date().getFullYear()} DevDash. All rights reserved.
+        <p className="relative z-10 text-xs text-zinc-700">
+          © {new Date().getFullYear()} NexusAI. All rights reserved.
         </p>
       </div>
 
       {/* Right panel — Clerk SignIn */}
-      <div
-        style={{
-          flex: "1",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "40px 24px",
-          gap: "24px",
-        }}
-      >
+      <div className="flex flex-1 flex-col items-center justify-center px-6 py-10 gap-6 bg-[#0A0A0A]">
         {/* Mobile-only logo */}
-        <div
-          className="mobile-logo"
-          style={{ display: "flex", alignItems: "center", gap: "8px" }}
-        >
-          <div
-            style={{
-              width: "28px",
-              height: "28px",
-              borderRadius: "8px",
-              backgroundColor: "#111827",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <span style={{ color: "#fff", fontSize: "12px", fontWeight: 700 }}>D</span>
+        <div className="flex md:hidden items-center gap-2">
+          <div className="w-7 h-7 rounded-xl bg-zinc-100 flex items-center justify-center">
+            <span className="text-zinc-900 text-xs font-bold">N</span>
           </div>
-          <span style={{ fontSize: "14px", fontWeight: 600, color: "#374151" }}>DevDash</span>
+          <span className="text-zinc-100 text-sm font-semibold">NexusAI</span>
         </div>
 
         {/* Clerk component */}
         <SignIn />
 
         {/* Bottom tagline */}
-        <p style={{ fontSize: "12px", color: "#9ca3af", margin: 0, textAlign: "center" }}>
+        <p className="text-xs text-zinc-600 text-center">
           Secured by{" "}
-          <span style={{ color: "#6b7280", fontWeight: 500 }}>Clerk</span> ·{" "}
-          <span style={{ color: "#6b7280", fontWeight: 500 }}>Supabase</span>
+          <span className="text-zinc-500 font-medium">Clerk</span> ·{" "}
+          <span className="text-zinc-500 font-medium">Supabase</span>
         </p>
       </div>
-
-      {/* Responsive styles */}
-      <style>{`
-        @media (min-width: 768px) {
-          .left-panel {
-            display: flex !important;
-          }
-          .mobile-logo {
-            display: none !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

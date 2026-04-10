@@ -3,6 +3,7 @@
 import { useAuth, useSession } from "@clerk/nextjs";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useState } from "react";
+import { Bot, Plus, Lock, AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
 
 export default function AgentsPage() {
   const { orgId, userId, orgRole } = useAuth();
@@ -62,50 +63,19 @@ export default function AgentsPage() {
   // Non-admin view
   if (!isAdmin) {
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "640px" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-          <h1 style={{ fontSize: "22px", fontWeight: 700, color: "#111827", margin: 0, letterSpacing: "-0.02em" }}>
-            Agents
-          </h1>
-          <p style={{ fontSize: "14px", color: "#6b7280", margin: 0 }}>
-            Manage your organisation's agents.
-          </p>
+      <div className="flex flex-col gap-8 max-w-[640px]">
+        <div className="flex flex-col gap-1.5">
+          <h1 className="text-2xl font-semibold text-zinc-100 tracking-tight">Agents</h1>
+          <p className="text-sm text-zinc-400">Manage your organisation's agents.</p>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "14px",
-            padding: "20px",
-            backgroundColor: "#fffbeb",
-            border: "1px solid #fde68a",
-            borderRadius: "14px",
-          }}
-        >
-          <div
-            style={{
-              width: "36px",
-              height: "36px",
-              borderRadius: "10px",
-              backgroundColor: "#fef3c7",
-              border: "1px solid #fde68a",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0110 0v4"/>
-            </svg>
+        <div className="bg-[#111111] border border-amber-500/20 rounded-xl p-5 flex items-start gap-4">
+          <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0">
+            <Lock size={16} className="text-amber-400" />
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-            <p style={{ fontSize: "14px", fontWeight: 600, color: "#92400e", margin: 0 }}>
-              Admin access required
-            </p>
-            <p style={{ fontSize: "13px", color: "#78350f", margin: 0, lineHeight: 1.5 }}>
+          <div className="flex flex-col gap-1">
+            <p className="text-sm font-semibold text-amber-400">Admin access required</p>
+            <p className="text-sm text-zinc-400 leading-relaxed">
               Only organisation admins can create and manage agents. Contact your admin to request access.
             </p>
           </div>
@@ -117,145 +87,58 @@ export default function AgentsPage() {
   const isDisabled = loading || !name || !orgId;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "640px" }}>
-
+    <div className="flex flex-col gap-8 max-w-[640px]">
       {/* Page header */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        <h1 style={{ fontSize: "22px", fontWeight: 700, color: "#111827", margin: 0, letterSpacing: "-0.02em" }}>
-          Agents
-        </h1>
-        <p style={{ fontSize: "14px", color: "#6b7280", margin: 0 }}>
-          Create and manage agents for your organisation.
-        </p>
+      <div className="flex flex-col gap-1.5">
+        <h1 className="text-2xl font-semibold text-zinc-100 tracking-tight">Agents</h1>
+        <p className="text-sm text-zinc-400">Create and manage agents for your organisation.</p>
       </div>
 
       {/* Org context badge */}
-      <div
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "8px",
-          padding: "8px 14px",
-          backgroundColor: "#ffffff",
-          border: "1px solid #e5e7eb",
-          borderRadius: "10px",
-          alignSelf: "flex-start",
-        }}
-      >
-        <div
-          style={{
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            backgroundColor: orgId ? "#22c55e" : "#f59e0b",
-            flexShrink: 0,
-          }}
-        />
-        <span style={{ fontSize: "12px", color: "#6b7280" }}>Org:</span>
-        <code style={{ fontSize: "12px", color: "#111827", fontFamily: "monospace", fontWeight: 500 }}>
-          {orgId ?? "No org selected"}
-        </code>
+      <div className="inline-flex items-center gap-2 px-3 py-2 bg-[#111111] border border-zinc-800/60 rounded-lg self-start">
+        <span className={`w-2 h-2 rounded-full shrink-0 ${orgId ? "bg-emerald-500" : "bg-amber-500"}`} />
+        <span className="text-xs text-zinc-500">Org:</span>
+        <code className="text-xs text-zinc-300 font-mono font-medium">{orgId ?? "No org selected"}</code>
       </div>
 
       {/* Create agent card */}
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          border: "1px solid #e5e7eb",
-          borderRadius: "14px",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            padding: "16px 20px",
-            borderBottom: "1px solid #f3f4f6",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-          </svg>
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "#111827" }}>Create New Agent</span>
-          <span
-            style={{
-              marginLeft: "auto",
-              fontSize: "10px",
-              fontWeight: 600,
-              color: "#4f46e5",
-              backgroundColor: "#eef2ff",
-              border: "1px solid #c7d2fe",
-              padding: "2px 7px",
-              borderRadius: "4px",
-              letterSpacing: "0.04em",
-              textTransform: "uppercase",
-            }}
-          >
+      <div className="bg-[#111111] border border-zinc-800/60 rounded-xl overflow-hidden shadow-sm">
+        <div className="px-5 py-4 border-b border-zinc-800/50 flex items-center gap-2.5">
+          <Bot size={14} className="text-zinc-400" />
+          <span className="text-sm font-medium text-zinc-200">Create New Agent</span>
+          <span className="ml-auto text-[10px] font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded tracking-wider uppercase">
             Admin
           </span>
         </div>
 
-        <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "14px" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-            <label style={{ fontSize: "12px", fontWeight: 500, color: "#374151" }}>
-              Agent Name
-            </label>
+        <div className="p-5 flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <label className="text-xs font-medium text-zinc-400">Agent Name</label>
             <input
               type="text"
               placeholder="e.g. Support Bot, Analytics Agent"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              style={{
-                width: "100%",
-                border: "1px solid #e5e7eb",
-                borderRadius: "8px",
-                padding: "9px 12px",
-                fontSize: "14px",
-                color: "#111827",
-                backgroundColor: "#ffffff",
-                outline: "none",
-                boxSizing: "border-box",
-              }}
+              className="w-full bg-[#0A0A0A] border border-zinc-800 rounded-lg px-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-600 outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-700 transition-colors"
             />
           </div>
 
           <button
             onClick={handleInsert}
             disabled={isDisabled}
-            style={{
-              alignSelf: "flex-start",
-              padding: "10px 20px",
-              borderRadius: "10px",
-              backgroundColor: isDisabled ? "#f3f4f6" : "#111827",
-              color: isDisabled ? "#9ca3af" : "#ffffff",
-              fontSize: "14px",
-              fontWeight: 500,
-              border: "none",
-              cursor: isDisabled ? "not-allowed" : "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
+            className="self-start flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all disabled:cursor-not-allowed disabled:opacity-40 bg-zinc-100 text-zinc-900 hover:bg-white disabled:bg-zinc-800 disabled:text-zinc-500"
           >
             {loading ? (
               <>
-                <svg
-                  width="13" height="13" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2.5"
-                  style={{ animation: "spin 0.8s linear infinite" }}
-                >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                  className="animate-spin">
                   <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
                 </svg>
                 Adding...
               </>
             ) : (
               <>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="12" y1="5" x2="12" y2="19"/>
-                  <line x1="5" y1="12" x2="19" y2="12"/>
-                </svg>
+                <Plus size={13} />
                 Add Agent
               </>
             )}
@@ -265,67 +148,35 @@ export default function AgentsPage() {
 
       {/* Result card */}
       {result !== null && (
-        <div
-          style={{
-            backgroundColor: "#ffffff",
-            border: `1px solid ${result?.error ? "#fecaca" : "#bbf7d0"}`,
-            borderRadius: "14px",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              padding: "14px 20px",
-              borderBottom: `1px solid ${result?.error ? "#fecaca" : "#bbf7d0"}`,
-              backgroundColor: result?.error ? "#fef2f2" : "#f0fdf4",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            {result?.error ? (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="15" y1="9" x2="9" y2="15"/>
-                <line x1="9" y1="9" x2="15" y2="15"/>
-              </svg>
-            ) : (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-            )}
-            <span style={{ fontSize: "13px", fontWeight: 600, color: result?.error ? "#991b1b" : "#065f46" }}>
+        <div className={`bg-[#111111] border rounded-xl overflow-hidden shadow-sm ${result?.error ? "border-red-500/20" : "border-emerald-500/20"}`}>
+          <div className={`px-5 py-4 border-b flex items-center gap-2.5 ${result?.error ? "border-red-500/20 bg-red-500/5" : "border-emerald-500/20 bg-emerald-500/5"}`}>
+            {result?.error
+              ? <XCircle size={14} className="text-red-400" />
+              : <CheckCircle2 size={14} className="text-emerald-400" />
+            }
+            <span className={`text-sm font-medium ${result?.error ? "text-red-400" : "text-emerald-400"}`}>
               {result?.error ? "Failed to create agent" : "Agent created successfully"}
             </span>
           </div>
 
-          <div style={{ padding: "16px 20px" }}>
+          <div className="p-5">
             {result?.error ? (
-              <p style={{ fontSize: "13px", color: "#991b1b", margin: 0 }}>
+              <p className="text-sm text-red-400">
                 {typeof result.error === "string" ? result.error : JSON.stringify(result.error)}
               </p>
             ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div className="flex flex-col gap-3">
                 {result?.data?.[0] && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <div className="flex flex-col gap-2">
                     {[
                       { label: "Agent ID", value: String(result.data[0].id) },
                       { label: "Name", value: result.data[0].name },
                       { label: "Org ID", value: result.data[0].org_id },
                       { label: "Status", value: result.data[0].status ?? "active" },
                     ].map(({ label, value }) => (
-                      <div key={label} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                        <span style={{ fontSize: "12px", color: "#9ca3af", minWidth: "70px" }}>{label}</span>
-                        <code style={{
-                          fontSize: "12px",
-                          color: "#111827",
-                          fontFamily: "monospace",
-                          backgroundColor: "#f8fafc",
-                          border: "1px solid #e5e7eb",
-                          borderRadius: "6px",
-                          padding: "2px 8px",
-                        }}>
+                      <div key={label} className="flex items-center gap-3">
+                        <span className="text-xs text-zinc-500 min-w-[70px]">{label}</span>
+                        <code className="text-xs text-zinc-300 font-mono bg-zinc-900 border border-zinc-800 rounded px-2 py-0.5">
                           {value}
                         </code>
                       </div>
@@ -333,20 +184,9 @@ export default function AgentsPage() {
                   </div>
                 )}
                 {result?.auditError && (
-                  <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    padding: "8px 12px",
-                    backgroundColor: "#fffbeb",
-                    border: "1px solid #fde68a",
-                    borderRadius: "8px",
-                  }}>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                      <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-                    </svg>
-                    <span style={{ fontSize: "12px", color: "#92400e" }}>
+                  <div className="flex items-center gap-2 px-3 py-2 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+                    <AlertTriangle size={12} className="text-amber-400 shrink-0" />
+                    <span className="text-xs text-amber-400">
                       Audit log warning: {result.auditError.message ?? JSON.stringify(result.auditError)}
                     </span>
                   </div>
@@ -356,17 +196,6 @@ export default function AgentsPage() {
           </div>
         </div>
       )}
-
-      <style>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        input:focus {
-          border-color: #111827 !important;
-          box-shadow: 0 0 0 3px rgba(17,24,39,0.08);
-        }
-      `}</style>
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useAuth } from "@clerk/nextjs";
 import { useState } from "react";
+import { Users, Lock, Send, CheckCircle2, XCircle } from "lucide-react";
 
 export default function TeamPage() {
   const { orgRole } = useAuth();
@@ -46,64 +47,19 @@ export default function TeamPage() {
 
   if (!isAdmin) {
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "640px" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-          <h1
-            style={{
-              fontSize: "22px",
-              fontWeight: 700,
-              color: "#111827",
-              margin: 0,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Team
-          </h1>
-          <p style={{ fontSize: "14px", color: "#6b7280", margin: 0 }}>
-            Team management is restricted to organisation admins.
-          </p>
+      <div className="flex flex-col gap-8 max-w-[640px]">
+        <div className="flex flex-col gap-1.5">
+          <h1 className="text-2xl font-semibold text-zinc-100 tracking-tight">Team</h1>
+          <p className="text-sm text-zinc-400">Team management is restricted to organisation admins.</p>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "#ffffff",
-            border: "1px solid #e5e7eb",
-            borderRadius: "14px",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              padding: "16px 20px",
-              borderBottom: "1px solid #f3f4f6",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#6b7280"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <line x1="15" y1="9" x2="9" y2="15" />
-              <line x1="9" y1="9" x2="15" y2="15" />
-            </svg>
-            <span style={{ fontSize: "13px", fontWeight: 600, color: "#111827" }}>
-              Access Restricted
-            </span>
+        <div className="bg-[#111111] border border-zinc-800/60 rounded-xl overflow-hidden shadow-sm">
+          <div className="px-5 py-4 border-b border-zinc-800/50 flex items-center gap-2.5">
+            <Lock size={14} className="text-zinc-400" />
+            <span className="text-sm font-medium text-zinc-200">Access Restricted</span>
           </div>
-
-          <div style={{ padding: "20px" }}>
-            <p style={{ fontSize: "14px", color: "#374151", margin: 0 }}>
-              Only admins can invite and manage team members.
-            </p>
+          <div className="p-5">
+            <p className="text-sm text-zinc-400">Only admins can invite and manage team members.</p>
           </div>
         </div>
       </div>
@@ -111,80 +67,45 @@ export default function TeamPage() {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "640px" }}>
+    <div className="flex flex-col gap-8 max-w-[640px]">
       {/* Page header */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        <h1 style={{ fontSize: "22px", fontWeight: 700, color: "#111827", margin: 0, letterSpacing: "-0.02em" }}>
-          Team
-        </h1>
-        <p style={{ fontSize: "14px", color: "#6b7280", margin: 0 }}>
-          Invite members to collaborate in your organisation.
-        </p>
+      <div className="flex flex-col gap-1.5">
+        <h1 className="text-2xl font-semibold text-zinc-100 tracking-tight">Team</h1>
+        <p className="text-sm text-zinc-400">Invite members to collaborate in your organisation.</p>
       </div>
 
       {/* Invite card */}
-      <div style={{ backgroundColor: "#ffffff", border: "1px solid #e5e7eb", borderRadius: "14px", overflow: "hidden" }}>
-        <div style={{ padding: "16px 20px", borderBottom: "1px solid #f3f4f6", display: "flex", alignItems: "center", gap: "8px" }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-            <circle cx="8.5" cy="7" r="4"/>
-            <line x1="20" y1="8" x2="20" y2="14"/>
-            <line x1="23" y1="11" x2="17" y2="11"/>
-          </svg>
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "#111827" }}>Invite Member</span>
+      <div className="bg-[#111111] border border-zinc-800/60 rounded-xl overflow-hidden shadow-sm">
+        <div className="px-5 py-4 border-b border-zinc-800/50 flex items-center gap-2.5">
+          <Users size={14} className="text-zinc-400" />
+          <span className="text-sm font-medium text-zinc-200">Invite Member</span>
         </div>
 
-        <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "14px" }}>
+        <div className="p-5 flex flex-col gap-4">
           {/* Email input */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-            <label style={{ fontSize: "12px", fontWeight: 500, color: "#374151" }}>
-              Email Address
-            </label>
+          <div className="flex flex-col gap-2">
+            <label className="text-xs font-medium text-zinc-400">Email Address</label>
             <input
               type="email"
               placeholder="colleague@company.com"
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
-              style={{
-                width: "100%",
-                border: "1px solid #e5e7eb",
-                borderRadius: "8px",
-                padding: "9px 12px",
-                fontSize: "14px",
-                color: "#111827",
-                backgroundColor: "#ffffff",
-                outline: "none",
-                boxSizing: "border-box",
-              }}
+              className="w-full bg-[#0A0A0A] border border-zinc-800 rounded-lg px-3 py-2.5 text-sm text-zinc-200 placeholder-zinc-600 outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-700 transition-colors"
             />
           </div>
 
           {/* Role select */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-            <label style={{ fontSize: "12px", fontWeight: 500, color: "#374151" }}>
-              Role
-            </label>
+          <div className="flex flex-col gap-2">
+            <label className="text-xs font-medium text-zinc-400">Role</label>
             <select
               value={role}
               onChange={(e) => setRole(e.target.value as "org:member" | "org:admin")}
-              style={{
-                width: "100%",
-                border: "1px solid #e5e7eb",
-                borderRadius: "8px",
-                padding: "9px 12px",
-                fontSize: "14px",
-                color: "#111827",
-                backgroundColor: "#ffffff",
-                outline: "none",
-                boxSizing: "border-box",
-              }}
+              className="w-full bg-[#0A0A0A] border border-zinc-800 rounded-lg px-3 py-2.5 text-sm text-zinc-200 outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-700 transition-colors"
             >
               <option value="org:member">Member</option>
               <option value="org:admin">Admin</option>
             </select>
-
-            {/* Role description */}
-            <p style={{ fontSize: "11px", color: "#9ca3af", margin: 0 }}>
+            <p className="text-xs text-zinc-600">
               {role === "org:admin"
                 ? "Admins can manage members, API keys, and org settings."
                 : "Members can access the dashboard and use API keys."}
@@ -195,38 +116,19 @@ export default function TeamPage() {
           <button
             onClick={handleInvite}
             disabled={isDisabled}
-            style={{
-              alignSelf: "flex-start",
-              padding: "10px 20px",
-              borderRadius: "10px",
-              backgroundColor: isDisabled ? "#f3f4f6" : "#111827",
-              color: isDisabled ? "#9ca3af" : "#ffffff",
-              fontSize: "14px",
-              fontWeight: 500,
-              border: "none",
-              cursor: isDisabled ? "not-allowed" : "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
+            className="self-start flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all disabled:cursor-not-allowed disabled:opacity-40 bg-zinc-100 text-zinc-900 hover:bg-white disabled:bg-zinc-800 disabled:text-zinc-500"
           >
             {loading ? (
               <>
-                <svg
-                  width="13" height="13" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2.5"
-                  style={{ animation: "spin 0.8s linear infinite" }}
-                >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                  className="animate-spin">
                   <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
                 </svg>
                 Sending...
               </>
             ) : (
               <>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="22" y1="2" x2="11" y2="13"/>
-                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                </svg>
+                <Send size={13} />
                 Send Invite
               </>
             )}
@@ -234,63 +136,33 @@ export default function TeamPage() {
         </div>
       </div>
 
-      {/* Result card — only shown after an attempt */}
+      {/* Result card */}
       {result !== null && (
-        <div style={{
-          backgroundColor: "#ffffff",
-          border: `1px solid ${result?.error ? "#fecaca" : "#bbf7d0"}`,
-          borderRadius: "14px",
-          overflow: "hidden",
-        }}>
-          <div style={{
-            padding: "14px 20px",
-            borderBottom: `1px solid ${result?.error ? "#fecaca" : "#bbf7d0"}`,
-            backgroundColor: result?.error ? "#fef2f2" : "#f0fdf4",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}>
-            {result?.error ? (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="15" y1="9" x2="9" y2="15"/>
-                <line x1="9" y1="9" x2="15" y2="15"/>
-              </svg>
-            ) : (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-            )}
-            <span style={{ fontSize: "13px", fontWeight: 600, color: result?.error ? "#991b1b" : "#065f46" }}>
+        <div className={`bg-[#111111] border rounded-xl overflow-hidden shadow-sm ${result?.error ? "border-red-500/20" : "border-emerald-500/20"}`}>
+          <div className={`px-5 py-4 border-b flex items-center gap-2.5 ${result?.error ? "border-red-500/20 bg-red-500/5" : "border-emerald-500/20 bg-emerald-500/5"}`}>
+            {result?.error
+              ? <XCircle size={14} className="text-red-400" />
+              : <CheckCircle2 size={14} className="text-emerald-400" />
+            }
+            <span className={`text-sm font-medium ${result?.error ? "text-red-400" : "text-emerald-400"}`}>
               {result?.error ? "Invite Failed" : "Invite Sent Successfully"}
             </span>
           </div>
 
-          <div style={{ padding: "16px 20px" }}>
+          <div className="p-5">
             {result?.error ? (
-              <p style={{ fontSize: "13px", color: "#991b1b", margin: 0 }}>
-                {result.error}
-              </p>
+              <p className="text-sm text-red-400">{result.error}</p>
             ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <div className="flex flex-col gap-3">
                 {result?.invitationId && (
-                  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                    <span style={{ fontSize: "12px", color: "#9ca3af", minWidth: "100px" }}>Invitation ID</span>
-                    <code style={{
-                      fontSize: "12px",
-                      color: "#111827",
-                      fontFamily: "monospace",
-                      backgroundColor: "#f8fafc",
-                      border: "1px solid #e5e7eb",
-                      borderRadius: "6px",
-                      padding: "2px 8px",
-                    }}>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-zinc-500 min-w-[100px]">Invitation ID</span>
+                    <code className="text-xs text-zinc-300 font-mono bg-zinc-900 border border-zinc-800 rounded px-2 py-0.5">
                       {result.invitationId}
                     </code>
                   </div>
                 )}
-                <p style={{ fontSize: "13px", color: "#374151", margin: 0 }}>
+                <p className="text-sm text-zinc-400">
                   An invitation email has been sent. They'll be able to join your organisation once they accept.
                 </p>
               </div>
@@ -298,17 +170,6 @@ export default function TeamPage() {
           </div>
         </div>
       )}
-
-      <style>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        input:focus, select:focus {
-          border-color: #111827 !important;
-          box-shadow: 0 0 0 3px rgba(17,24,39,0.08);
-        }
-      `}</style>
     </div>
   );
 }

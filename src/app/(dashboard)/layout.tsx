@@ -20,60 +20,42 @@ export default async function DashboardLayout({
   const isAdmin = orgRole === "org:admin";
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "grid",
-        gridTemplateColumns: "240px 1fr",
-        backgroundColor: "#f8fafc",
-        fontFamily: "inherit",
-      }}
-    >
+    <div className="min-h-screen grid grid-cols-[240px_1fr] bg-[#0A0A0A] font-sans text-zinc-100 selection:bg-zinc-800">
       <DashboardSidebar isAdmin={isAdmin} />
 
-      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <div className="flex flex-col min-h-screen overflow-hidden">
         {/* Topbar */}
-        <header
-          style={{
-            backgroundColor: "#ffffff",
-            borderBottom: "1px solid #e5e7eb",
-            padding: "12px 24px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            position: "sticky",
-            top: 0,
-            zIndex: 10,
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <OrganizationSwitcher
-              appearance={{
-                elements: { rootBox: { fontSize: "14px" } },
-              }}
-            />
+        <header className="bg-[#0A0A0A]/90 backdrop-blur-sm border-b border-zinc-800/60 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+          <div className="flex items-center gap-3">
+            <div className="opacity-90 grayscale-[50%] hover:grayscale-0 hover:opacity-100 transition-all">
+              <OrganizationSwitcher
+                appearance={{
+                  elements: { 
+                    rootBox: { fontSize: "14px" },
+                    organizationSwitcherTrigger: { color: "#e4e4e7" },
+                    organizationSwitcherTriggerIcon: { color: "#71717a" }
+                  },
+                }}
+              />
+            </div>
             {/* Role badge */}
-            <span
-              style={{
-                fontSize: "11px",
-                fontWeight: 600,
-                padding: "3px 10px",
-                borderRadius: "99px",
-                backgroundColor: isAdmin ? "#eef2ff" : "#f3f4f6",
-                color: isAdmin ? "#4f46e5" : "#6b7280",
-                border: `1px solid ${isAdmin ? "#c7d2fe" : "#e5e7eb"}`,
-                letterSpacing: "0.02em",
-              }}
-            >
+            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full tracking-wider uppercase ${isAdmin ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20" : "bg-zinc-800/50 text-zinc-400 border border-zinc-700/50"}`}>
               {isAdmin ? "Admin" : "Member"}
             </span>
           </div>
 
-          <UserButton />
+          <div className="flex items-center gap-5">
+             <div className="flex items-center gap-2.5">
+                 <span className="text-xs font-semibold text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 rounded-full tracking-wide">Free Plan</span>
+                 <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+             </div>
+             <div className="h-6 w-px bg-zinc-800" />
+             <UserButton appearance={{ elements: { userButtonAvatarBox: "w-8 h-8 rounded-lg" } }} />
+          </div>
         </header>
 
         {/* Page content */}
-        <main style={{ flex: 1, padding: "32px 28px", backgroundColor: "#f8fafc" }}>
+        <main className="flex-1 p-8 md:p-10 bg-[#0A0A0A] overflow-y-auto">
           {children}
         </main>
       </div>

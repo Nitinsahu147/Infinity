@@ -3,6 +3,7 @@
 import { useAuth, useSession } from "@clerk/nextjs";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useEffect, useMemo, useState } from "react";
+import { Activity, BarChart2 } from "lucide-react";
 
 import {
   LineChart,
@@ -104,61 +105,58 @@ export default function MetricsPage() {
 
   const statCards = [
     {
-      label: "Total API Calls",
+      label: "TOTAL API CALLS",
       value: totalCalls,
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
         </svg>
       ),
-      accent: "#4f46e5", bg: "#eef2ff",
+      colorClass: "text-indigo-400",
+      bgClass: "bg-indigo-500/10",
     },
     {
-      label: "Today's Calls",
+      label: "TODAY'S CALLS",
       value: todayCalls,
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
         </svg>
       ),
-      accent: "#0891b2", bg: "#ecfeff",
+      colorClass: "text-sky-400",
+      bgClass: "bg-sky-500/10",
     },
     {
-      label: "Success Rate",
+      label: "SUCCESS RATE",
       value: `${successRate}%`,
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-          <polyline points="22 4 12 14.01 9 11.01"/>
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+          <polyline points="22 4 12 14.01 9 11.01" />
         </svg>
       ),
-      accent: "#059669", bg: "#ecfdf5",
+      colorClass: "text-emerald-400",
+      bgClass: "bg-emerald-500/10",
     },
     {
-      label: "Unique Keys Used",
+      label: "UNIQUE KEYS USED",
       value: Object.keys(usageByKey).length,
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="7" cy="17" r="4"/><path d="M10.5 13.5L21 3"/><path d="M19 5l2 2"/><path d="M15 9l2 2"/>
+          <circle cx="7" cy="17" r="4" /><path d="M10.5 13.5L21 3" /><path d="M19 5l2 2" /><path d="M15 9l2 2" />
         </svg>
       ),
-      accent: "#d97706", bg: "#fffbeb",
+      colorClass: "text-amber-400",
+      bgClass: "bg-amber-500/10",
     },
   ];
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (!active || !payload?.length) return null;
     return (
-      <div style={{
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
-        borderRadius: "10px",
-        padding: "10px 14px",
-        fontSize: "13px",
-        boxShadow: "0 4px 6px rgba(0,0,0,0.05)",
-      }}>
-        <p style={{ margin: "0 0 4px 0", color: "#6b7280", fontWeight: 500 }}>{label}</p>
-        <p style={{ margin: 0, color: "#111827", fontWeight: 600 }}>
+      <div className="bg-[#1a1a1a] border border-zinc-700/60 rounded-xl px-3 py-2.5 text-xs shadow-xl">
+        <p className="text-zinc-400 font-medium mb-1">{label}</p>
+        <p className="text-zinc-100 font-semibold">
           {payload[0].value} {payload[0].value === 1 ? "call" : "calls"}
         </p>
       </div>
@@ -166,105 +164,69 @@ export default function MetricsPage() {
   };
 
   const EmptyChart = ({ message }: { message: string }) => (
-    <div style={{
-      height: "300px",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "10px",
-      backgroundColor: "#f9fafb",
-      borderRadius: "10px",
-      border: "1px dashed #e5e7eb",
-    }}>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+    <div className="h-[300px] flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-zinc-800/60">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-700">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
       </svg>
-      <p style={{ fontSize: "13px", color: "#9ca3af", margin: 0 }}>{message}</p>
+      <p className="text-sm text-zinc-600">{message}</p>
     </div>
   );
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
-
+    <div className="flex flex-col gap-8">
       {/* Page header */}
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-          <h1 style={{ fontSize: "22px", fontWeight: 700, color: "#111827", margin: 0, letterSpacing: "-0.02em" }}>
-            API Usage Analytics
-          </h1>
-          <p style={{ fontSize: "14px", color: "#6b7280", margin: 0 }}>
-            Real-time metrics for your organisation's API activity.
-          </p>
+      <div className="flex items-start justify-between flex-wrap gap-3">
+        <div className="flex flex-col gap-1.5">
+          <h1 className="text-2xl font-semibold text-zinc-100 tracking-tight">API Usage Analytics</h1>
+          <p className="text-sm text-zinc-400">Real-time metrics for your organisation's API activity.</p>
         </div>
 
         {/* Live badge */}
-        <div style={{
-          display: "inline-flex", alignItems: "center", gap: "6px",
-          padding: "6px 12px", borderRadius: "8px",
-          backgroundColor: "#f0fdf4", border: "1px solid #bbf7d0",
-          fontSize: "12px", color: "#059669", fontWeight: 500,
-        }}>
-          <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#22c55e", display: "inline-block" }} />
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-500 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
           Live
-        </div>
+        </span>
       </div>
 
       {/* Stat cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "14px" }}>
-        {statCards.map(({ label, value, icon, accent, bg }) => (
-          <div key={label} style={{
-            backgroundColor: "#ffffff",
-            border: "1px solid #e5e7eb",
-            borderRadius: "14px",
-            padding: "18px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "12px",
-          }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span style={{ fontSize: "12px", color: "#6b7280", fontWeight: 500 }}>{label}</span>
-              <div style={{
-                width: "30px", height: "30px", borderRadius: "8px",
-                backgroundColor: bg, color: accent,
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {statCards.map(({ label, value, icon, colorClass, bgClass }) => (
+          <div key={label} className="bg-[#111111] border border-zinc-800/60 rounded-xl p-5 flex flex-col gap-4 shadow-sm">
+            <div className="flex items-start justify-between">
+              <span className="text-[11px] font-semibold text-zinc-500 tracking-wider">{label}</span>
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${bgClass} ${colorClass}`}>
                 {icon}
               </div>
             </div>
-            <span style={{ fontSize: "26px", fontWeight: 700, color: "#111827", letterSpacing: "-0.02em", lineHeight: 1 }}>
-              {value}
-            </span>
+            <span className="text-3xl font-semibold text-zinc-100 tracking-tight">{value}</span>
           </div>
         ))}
       </div>
 
       {/* Line chart */}
-      <div style={{ backgroundColor: "#ffffff", border: "1px solid #e5e7eb", borderRadius: "14px", overflow: "hidden" }}>
-        <div style={{ padding: "16px 20px", borderBottom: "1px solid #f3f4f6", display: "flex", alignItems: "center", gap: "8px" }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-          </svg>
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "#111827" }}>API Usage Over Time</span>
-          <span style={{ marginLeft: "auto", fontSize: "11px", color: "#9ca3af" }}>
+      <div className="bg-[#111111] border border-zinc-800/60 rounded-xl overflow-hidden shadow-sm">
+        <div className="px-5 py-4 border-b border-zinc-800/50 flex items-center gap-2.5">
+          <Activity size={14} className="text-zinc-400" />
+          <span className="text-sm font-medium text-zinc-200">API Usage Over Time</span>
+          <span className="ml-auto text-xs text-zinc-500">
             {usageOverTime.length} {usageOverTime.length === 1 ? "day" : "days"} of data
           </span>
         </div>
-        <div style={{ padding: "20px" }}>
+        <div className="p-5">
           {usageOverTime.length === 0 ? (
             <EmptyChart message="No usage data yet" />
           ) : (
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={usageOverTime} margin={{ top: 4, right: 4, left: -20, bottom: 4 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
                 <XAxis
                   dataKey="date"
-                  tick={{ fontSize: 11, fill: "#9ca3af" }}
+                  tick={{ fontSize: 11, fill: "#71717a" }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fontSize: 11, fill: "#9ca3af" }}
+                  tick={{ fontSize: 11, fill: "#71717a" }}
                   axisLine={false}
                   tickLine={false}
                   allowDecimals={false}
@@ -273,9 +235,9 @@ export default function MetricsPage() {
                 <Line
                   type="monotone"
                   dataKey="count"
-                  stroke="#4f46e5"
+                  stroke="#818cf8"
                   strokeWidth={2}
-                  dot={{ fill: "#4f46e5", r: 3, strokeWidth: 0 }}
+                  dot={{ fill: "#818cf8", r: 3, strokeWidth: 0 }}
                   activeDot={{ r: 5, strokeWidth: 0 }}
                 />
               </LineChart>
@@ -285,31 +247,29 @@ export default function MetricsPage() {
       </div>
 
       {/* Bar chart */}
-      <div style={{ backgroundColor: "#ffffff", border: "1px solid #e5e7eb", borderRadius: "14px", overflow: "hidden" }}>
-        <div style={{ padding: "16px 20px", borderBottom: "1px solid #f3f4f6", display: "flex", alignItems: "center", gap: "8px" }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
-          </svg>
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "#111827" }}>Usage by API Key</span>
-          <span style={{ marginLeft: "auto", fontSize: "11px", color: "#9ca3af" }}>
+      <div className="bg-[#111111] border border-zinc-800/60 rounded-xl overflow-hidden shadow-sm">
+        <div className="px-5 py-4 border-b border-zinc-800/50 flex items-center gap-2.5">
+          <BarChart2 size={14} className="text-zinc-400" />
+          <span className="text-sm font-medium text-zinc-200">Usage by API Key</span>
+          <span className="ml-auto text-xs text-zinc-500">
             {usagePerKey.length} {usagePerKey.length === 1 ? "key" : "keys"} active
           </span>
         </div>
-        <div style={{ padding: "20px" }}>
+        <div className="p-5">
           {usagePerKey.length === 0 ? (
             <EmptyChart message="No key usage data yet" />
           ) : (
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={usagePerKey} margin={{ top: 4, right: 4, left: -20, bottom: 4 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
                 <XAxis
                   dataKey="name"
-                  tick={{ fontSize: 11, fill: "#9ca3af" }}
+                  tick={{ fontSize: 11, fill: "#71717a" }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fontSize: 11, fill: "#9ca3af" }}
+                  tick={{ fontSize: 11, fill: "#71717a" }}
                   axisLine={false}
                   tickLine={false}
                   allowDecimals={false}
@@ -317,7 +277,7 @@ export default function MetricsPage() {
                 <Tooltip content={<CustomTooltip />} />
                 <Bar
                   dataKey="count"
-                  fill="#4f46e5"
+                  fill="#818cf8"
                   radius={[6, 6, 0, 0]}
                   maxBarSize={56}
                 />
@@ -326,7 +286,6 @@ export default function MetricsPage() {
           )}
         </div>
       </div>
-
     </div>
   );
 }

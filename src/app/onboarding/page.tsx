@@ -4,6 +4,7 @@ import { useAuth, useSession } from "@clerk/nextjs";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
 
 export default function OnboardingPage() {
   const { orgId, userId } = useAuth();
@@ -54,113 +55,49 @@ export default function OnboardingPage() {
   const isDisabled = loading || !orgId || !userId;
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#f8fafc",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "24px",
-        fontFamily: "inherit",
-      }}
-    >
-      {/* Card */}
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          border: "1px solid #e5e7eb",
-          borderRadius: "20px",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
-          padding: "48px 40px",
-          width: "100%",
-          maxWidth: "480px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "28px",
-        }}
-      >
-        {/* Header */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-          {/* Logo */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
-            <div
-              style={{
-                width: "28px",
-                height: "28px",
-                borderRadius: "8px",
-                backgroundColor: "#111827",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <span style={{ color: "#fff", fontSize: "12px", fontWeight: 700 }}>D</span>
-            </div>
-            <span style={{ fontSize: "14px", fontWeight: 600, color: "#374151" }}>DevDash</span>
-          </div>
+    <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center p-6 relative overflow-hidden">
+      {/* Background grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
+      {/* Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/4 rounded-full blur-3xl pointer-events-none" />
 
-          <h1
-            style={{
-              fontSize: "24px",
-              fontWeight: 700,
-              color: "#111827",
-              margin: 0,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Complete Your Setup
-          </h1>
-          <p style={{ fontSize: "14px", color: "#6b7280", margin: 0, lineHeight: 1.6 }}>
+      {/* Card */}
+      <div className="relative z-10 w-full max-w-[460px] bg-[#111111] border border-zinc-800/60 rounded-2xl shadow-2xl p-10 flex flex-col gap-7">
+        {/* Logo */}
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-zinc-100 flex items-center justify-center">
+            <span className="text-zinc-900 text-sm font-bold">V</span>
+          </div>
+          <span className="text-zinc-100 text-base font-semibold tracking-tight">VyorAI</span>
+        </div>
+
+        {/* Header */}
+        <div className="flex flex-col gap-1.5">
+          <h1 className="text-2xl font-semibold text-zinc-100 tracking-tight">Complete Your Setup</h1>
+          <p className="text-sm text-zinc-500 leading-relaxed">
             Finish onboarding to unlock your full dashboard experience.
           </p>
         </div>
 
         {/* Steps indicator */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div className="flex flex-col gap-3">
           {[
             { label: "Account created", done: true },
             { label: "Organisation linked", done: !!orgId },
             { label: "Onboarding complete", done: result?.success === true },
           ].map(({ label, done }, i) => (
-            <div key={label} style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <div
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderRadius: "50%",
-                  backgroundColor: done ? "#111827" : "#f3f4f6",
-                  border: done ? "none" : "1px solid #e5e7eb",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  transition: "background-color 0.2s",
-                }}
-              >
+            <div key={label} className="flex items-center gap-3">
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all ${done ? "bg-zinc-100" : "bg-zinc-800/50 border border-zinc-700"
+                }`}>
                 {done ? (
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path
-                      d="M2 6l3 3 5-5"
-                      stroke="#fff"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
+                    <path d="M2 6l3 3 5-5" stroke="#09090b" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 ) : (
-                  <span style={{ fontSize: "11px", color: "#9ca3af", fontWeight: 500 }}>
-                    {i + 1}
-                  </span>
+                  <span className="text-[11px] text-zinc-600 font-medium">{i + 1}</span>
                 )}
               </div>
-              <span
-                style={{
-                  fontSize: "14px",
-                  color: done ? "#111827" : "#9ca3af",
-                  fontWeight: done ? 500 : 400,
-                }}
-              >
+              <span className={`text-sm ${done ? "text-zinc-200 font-medium" : "text-zinc-600"}`}>
                 {label}
               </span>
             </div>
@@ -168,61 +105,29 @@ export default function OnboardingPage() {
         </div>
 
         {/* Divider */}
-        <div style={{ height: "1px", backgroundColor: "#f3f4f6" }} />
+        <div className="h-px bg-zinc-800/50" />
 
         {/* Status notices */}
         {!orgId && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: "10px",
-              padding: "12px 14px",
-              borderRadius: "10px",
-              backgroundColor: "#fffbeb",
-              border: "1px solid #fde68a",
-            }}
-          >
-            <span style={{ fontSize: "14px", flexShrink: 0 }}>⚠️</span>
-            <p style={{ fontSize: "13px", color: "#92400e", margin: 0, lineHeight: 1.5 }}>
+          <div className="flex items-start gap-3 px-4 py-3 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+            <AlertTriangle size={15} className="text-amber-400 shrink-0 mt-0.5" />
+            <p className="text-sm text-amber-400 leading-relaxed">
               No organisation detected. Please ensure you're part of an org before continuing.
             </p>
           </div>
         )}
 
         {result?.error && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: "10px",
-              padding: "12px 14px",
-              borderRadius: "10px",
-              backgroundColor: "#fef2f2",
-              border: "1px solid #fecaca",
-            }}
-          >
-            <span style={{ fontSize: "14px", flexShrink: 0 }}>✕</span>
-            <p style={{ fontSize: "13px", color: "#991b1b", margin: 0, lineHeight: 1.5 }}>
-              {result.error}
-            </p>
+          <div className="flex items-start gap-3 px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl">
+            <XCircle size={15} className="text-red-400 shrink-0 mt-0.5" />
+            <p className="text-sm text-red-400 leading-relaxed">{result.error}</p>
           </div>
         )}
 
         {result?.success && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: "10px",
-              padding: "12px 14px",
-              borderRadius: "10px",
-              backgroundColor: "#f0fdf4",
-              border: "1px solid #bbf7d0",
-            }}
-          >
-            <span style={{ fontSize: "14px", flexShrink: 0 }}>✓</span>
-            <p style={{ fontSize: "13px", color: "#166534", margin: 0, lineHeight: 1.5 }}>
+          <div className="flex items-start gap-3 px-4 py-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
+            <CheckCircle2 size={15} className="text-emerald-400 shrink-0 mt-0.5" />
+            <p className="text-sm text-emerald-400 leading-relaxed">
               Onboarding complete! Redirecting you to the dashboard...
             </p>
           </div>
@@ -232,40 +137,12 @@ export default function OnboardingPage() {
         <button
           onClick={handleComplete}
           disabled={isDisabled}
-          style={{
-            width: "100%",
-            padding: "12px 20px",
-            borderRadius: "12px",
-            backgroundColor: isDisabled ? "#f3f4f6" : "#111827",
-            color: isDisabled ? "#9ca3af" : "#ffffff",
-            fontSize: "14px",
-            fontWeight: 500,
-            border: "none",
-            cursor: isDisabled ? "not-allowed" : "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-            transition: "background-color 0.15s",
-          }}
-          onMouseEnter={e => {
-            if (!isDisabled) e.currentTarget.style.backgroundColor = "#1f2937";
-          }}
-          onMouseLeave={e => {
-            if (!isDisabled) e.currentTarget.style.backgroundColor = "#111827";
-          }}
+          className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl text-sm font-medium transition-all disabled:cursor-not-allowed disabled:opacity-40 bg-zinc-100 text-zinc-900 hover:bg-white disabled:bg-zinc-800 disabled:text-zinc-500"
         >
           {loading ? (
             <>
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                style={{ animation: "spin 0.8s linear infinite" }}
-              >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                className="animate-spin">
                 <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
               </svg>
               Completing setup...
@@ -276,19 +153,12 @@ export default function OnboardingPage() {
         </button>
 
         {/* Footer */}
-        <p style={{ fontSize: "12px", color: "#9ca3af", margin: 0, textAlign: "center" }}>
+        <p className="text-xs text-zinc-600 text-center">
           Secured by{" "}
-          <span style={{ color: "#6b7280", fontWeight: 500 }}>Clerk</span> ·{" "}
-          <span style={{ color: "#6b7280", fontWeight: 500 }}>Supabase</span>
+          <span className="text-zinc-500 font-medium">Clerk</span> ·{" "}
+          <span className="text-zinc-500 font-medium">Supabase</span>
         </p>
       </div>
-
-      <style>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 }

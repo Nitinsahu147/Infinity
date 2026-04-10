@@ -7,246 +7,83 @@ export default function HomePage() {
   const { isSignedIn } = useUser();
 
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#f8fafc",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "24px",
-        fontFamily: "inherit",
-      }}
-    >
+    <main className="min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center p-6 relative overflow-hidden">
+      {/* Background grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
+      {/* Radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
+
       {/* Brand mark */}
-      <div
-        style={{
-          position: "absolute",
-          top: "24px",
-          left: "32px",
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-        }}
-      >
-        <div
-          style={{
-            width: "28px",
-            height: "28px",
-            borderRadius: "8px",
-            backgroundColor: "#111827",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <span style={{ color: "#fff", fontSize: "12px", fontWeight: 700 }}>D</span>
+      <div className="absolute top-6 left-8 flex items-center gap-2.5 z-10">
+        <div className="w-8 h-8 rounded-xl bg-zinc-100 flex items-center justify-center">
+          <span className="text-zinc-900 text-sm font-bold">V</span>
         </div>
-        <span style={{ fontSize: "14px", fontWeight: 600, color: "#374151" }}>DevDash</span>
+        <span className="text-zinc-100 text-sm font-semibold tracking-tight">VyorAI</span>
       </div>
 
       {/* Main card */}
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          border: "1px solid #e5e7eb",
-          borderRadius: "20px",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)",
-          padding: "48px 40px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "24px",
-          width: "100%",
-          maxWidth: "420px",
-        }}
-      >
+      <div className="relative z-10 w-full max-w-[420px] bg-[#111111] border border-zinc-800/60 rounded-2xl shadow-2xl p-10 flex flex-col items-center gap-6">
         {/* Status badge */}
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            padding: "4px 12px",
-            borderRadius: "999px",
-            backgroundColor: "#f1f5f9",
-            fontSize: "11px",
-            fontWeight: 500,
-            color: "#64748b",
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-          }}
-        >
-          <span
-            style={{
-              width: "6px",
-              height: "6px",
-              borderRadius: "50%",
-              backgroundColor: "#22c55e",
-              display: "inline-block",
-            }}
-          />
+        <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-500 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
           Multi-Tenant · Clerk + Supabase
         </div>
 
         {/* Heading block */}
-        <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: "8px" }}>
-          <h1
-            style={{
-              fontSize: "28px",
-              fontWeight: 700,
-              color: "#111827",
-              margin: 0,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.2,
-            }}
-          >
+        <div className="text-center flex flex-col gap-2">
+          <h1 className="text-2xl font-semibold text-zinc-100 tracking-tight leading-tight">
             Developer Dashboard
           </h1>
-          <p
-            style={{
-              fontSize: "14px",
-              color: "#6b7280",
-              margin: 0,
-              lineHeight: 1.6,
-              maxWidth: "300px",
-            }}
-          >
+          <p className="text-sm text-zinc-500 max-w-[300px] leading-relaxed mx-auto">
             A unified analytics platform with multi-tenant support. Manage projects, track metrics, and ship faster.
           </p>
         </div>
 
         {/* Divider */}
-        <div style={{ width: "100%", height: "1px", backgroundColor: "#f3f4f6" }} />
+        <div className="w-full h-px bg-zinc-800/60" />
 
         {/* CTA Buttons */}
         {!isSignedIn ? (
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+          <div className="flex flex-col gap-3 w-full">
             <Link
               href="/sign-in"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                padding: "11px 20px",
-                borderRadius: "12px",
-                backgroundColor: "#111827",
-                color: "#ffffff",
-                fontSize: "14px",
-                fontWeight: 500,
-                textDecoration: "none",
-                transition: "background-color 0.15s",
-              }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#1f2937")}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#111827")}
+              className="w-full flex items-center justify-center py-2.5 px-4 rounded-xl bg-zinc-100 text-zinc-900 text-sm font-medium hover:bg-white transition-all"
             >
               Sign In →
             </Link>
             <Link
               href="/sign-up"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "11px 20px",
-                borderRadius: "12px",
-                border: "1px solid #e5e7eb",
-                backgroundColor: "#ffffff",
-                color: "#374151",
-                fontSize: "14px",
-                fontWeight: 500,
-                textDecoration: "none",
-                transition: "background-color 0.15s, border-color 0.15s",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.backgroundColor = "#f9fafb";
-                e.currentTarget.style.borderColor = "#d1d5db";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.backgroundColor = "#ffffff";
-                e.currentTarget.style.borderColor = "#e5e7eb";
-              }}
+              className="w-full flex items-center justify-center py-2.5 px-4 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-medium hover:bg-zinc-800 hover:text-zinc-100 transition-all"
             >
               Create Account
             </Link>
           </div>
         ) : (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              width: "100%",
-            }}
-          >
+          <div className="flex items-center gap-3 w-full">
             <Link
               href="/dashboard"
-              style={{
-                flex: 1,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                padding: "11px 20px",
-                borderRadius: "12px",
-                backgroundColor: "#111827",
-                color: "#ffffff",
-                fontSize: "14px",
-                fontWeight: 500,
-                textDecoration: "none",
-              }}
+              className="flex-1 flex items-center justify-center py-2.5 px-4 rounded-xl bg-zinc-100 text-zinc-900 text-sm font-medium hover:bg-white transition-all"
             >
               Go to Dashboard →
             </Link>
-            <div
-              style={{
-                width: "42px",
-                height: "42px",
-                borderRadius: "12px",
-                border: "1px solid #e5e7eb",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#ffffff",
-                flexShrink: 0,
-              }}
-            >
+            <div className="w-10 h-10 rounded-xl border border-zinc-800 flex items-center justify-center bg-zinc-900 shrink-0">
               <UserButton />
             </div>
           </div>
         )}
 
         {/* Footer note */}
-        <p style={{ fontSize: "12px", color: "#9ca3af", margin: 0, textAlign: "center" }}>
+        <p className="text-xs text-zinc-600 text-center">
           Secure authentication via Clerk — your data stays private.
         </p>
       </div>
 
       {/* Feature pills */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "10px",
-          marginTop: "28px",
-          maxWidth: "420px",
-        }}
-      >
+      <div className="relative z-10 flex flex-wrap justify-center gap-2 mt-6 max-w-[420px]">
         {["⚡ Real-time analytics", "🔐 Role-based access", "📊 Multi-tenant support"].map((label) => (
           <div
             key={label}
-            style={{
-              padding: "6px 14px",
-              borderRadius: "8px",
-              backgroundColor: "#ffffff",
-              border: "1px solid #e5e7eb",
-              fontSize: "12px",
-              color: "#6b7280",
-              boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
-            }}
+            className="inline-flex items-center px-3 py-1.5 rounded-lg bg-zinc-900/60 border border-zinc-800 text-xs text-zinc-500"
           >
             {label}
           </div>
@@ -254,8 +91,8 @@ export default function HomePage() {
       </div>
 
       {/* Footer */}
-      <p style={{ marginTop: "32px", fontSize: "12px", color: "#9ca3af" }}>
-        © {new Date().getFullYear()} DevDash. All rights reserved.
+      <p className="relative z-10 mt-8 text-xs text-zinc-700">
+        © {new Date().getFullYear()} NexusAI. All rights reserved.
       </p>
     </main>
   );

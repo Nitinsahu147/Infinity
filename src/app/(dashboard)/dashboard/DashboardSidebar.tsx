@@ -2,6 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  LayoutDashboard,
+  Activity,
+  Key,
+  TerminalSquare,
+  Bot,
+  FileText,
+  Users,
+  Sun
+} from "lucide-react";
 
 type NavItem = {
   href: string;
@@ -13,76 +23,41 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     href: "/dashboard",
-    label: "Overview",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-      </svg>
-    ),
+    label: "Dashboard", // Renamed from Overview to match mock
+    icon: <LayoutDashboard size={18} />,
   },
   {
     href: "/metrics",
     label: "Metrics",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-      </svg>
-    ),
+    icon: <Activity size={18} />,
   },
   {
     href: "/api-keys",
     label: "API Keys",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="7" cy="17" r="4"/><path d="M10.5 13.5L21 3"/><path d="M19 5l2 2"/><path d="M15 9l2 2"/>
-      </svg>
-    ),
+    icon: <Key size={18} />,
   },
   {
     href: "/api-keys/test",
     label: "Test API Key",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-      </svg>
-    ),
+    icon: <TerminalSquare size={18} />,
   },
   {
     href: "/agents",
     label: "Agents",
     adminOnly: true,
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-      </svg>
-    ),
+    icon: <Bot size={18} />,
   },
   {
     href: "/audit-logs",
     label: "Audit Logs",
     adminOnly: true,
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="8" y1="13" x2="16" y2="13"/>
-        <line x1="8" y1="17" x2="16" y2="17"/>
-      </svg>
-    ),
+    icon: <FileText size={18} />,
   },
   {
     href: "/team",
     label: "Team",
     adminOnly: true,
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
-        <path d="M16 3.13a4 4 0 010 7.75"/>
-      </svg>
-    ),
+    icon: <Users size={18} />,
   },
 ];
 
@@ -94,55 +69,22 @@ export function DashboardSidebar({ isAdmin }: { isAdmin: boolean }) {
   );
 
   return (
-    <aside
-      style={{
-        backgroundColor: "#ffffff",
-        borderRight: "1px solid #e5e7eb",
-        display: "flex",
-        flexDirection: "column",
-        padding: "24px 16px",
-        gap: "32px",
-        position: "sticky",
-        top: 0,
-        height: "100vh",
-        overflowY: "auto",
-      }}
-    >
+    <aside className="bg-[#0A0A0A] border-r border-zinc-800/60 flex flex-col px-4 py-6 gap-8 sticky top-0 h-screen overflow-y-auto w-[240px]">
       {/* Logo */}
-      <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "0 8px" }}>
-        <div
-          style={{
-            width: "30px",
-            height: "30px",
-            borderRadius: "8px",
-            backgroundColor: "#111827",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-          }}
-        >
-          <span style={{ color: "#fff", fontSize: "13px", fontWeight: 700 }}>D</span>
+      <div className="flex items-center gap-2.5 px-2">
+        <div className="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(14,165,233,0.3)]">
+          {/* Using a lightning bolt equivalent for NexusAI style */}
+          <Activity size={18} className="text-white" />
         </div>
-        <span style={{ fontSize: "15px", fontWeight: 700, color: "#111827", letterSpacing: "-0.02em" }}>
-          DevDash
+        <span className="text-xl font-bold text-zinc-100 tracking-tight">
+          VyorAI
         </span>
       </div>
 
       {/* Nav */}
-      <nav style={{ display: "flex", flexDirection: "column", gap: "2px", flex: 1 }}>
-        <p
-          style={{
-            fontSize: "10px",
-            fontWeight: 600,
-            color: "#9ca3af",
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            padding: "0 10px",
-            margin: "0 0 6px 0",
-          }}
-        >
-          Navigation
+      <nav className="flex flex-col gap-1 flex-1">
+        <p className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest px-3 mb-2">
+          Platform
         </p>
 
         {visibleItems.map(({ href, label, icon, adminOnly }) => {
@@ -151,45 +93,20 @@ export function DashboardSidebar({ isAdmin }: { isAdmin: boolean }) {
             <Link
               key={href}
               href={href}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "9px 10px",
-                borderRadius: "8px",
-                fontSize: "14px",
-                fontWeight: isActive ? 600 : 500,
-                color: isActive ? "#111827" : "#374151",
-                textDecoration: "none",
-                backgroundColor: isActive ? "#f3f4f6" : "transparent",
-                borderLeft: isActive ? "2px solid #111827" : "2px solid transparent",
-              }}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-150 ${isActive
+                  ? "bg-zinc-800/60 bg-opacity-50 text-sky-400 font-semibold shadow-sm"
+                  : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40"
+                }`}
             >
-              <span
-                style={{
-                  color: isActive ? "#111827" : "#9ca3af",
-                  display: "flex",
-                  alignItems: "center",
-                  flexShrink: 0,
-                }}
-              >
+              <span className={`flex items-center shrink-0 ${isActive ? "text-sky-400" : "text-zinc-500"}`}>
                 {icon}
               </span>
-              <span style={{ flex: 1 }}>{label}</span>
+              <span className="flex-1">{label}</span>
+              {isActive && (
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-500 shadow-[0_0_6px_rgba(14,165,233,0.6)]" />
+              )}
               {adminOnly && isAdmin && (
-                <span
-                  style={{
-                    fontSize: "9px",
-                    fontWeight: 600,
-                    color: "#4f46e5",
-                    backgroundColor: "#eef2ff",
-                    border: "1px solid #c7d2fe",
-                    padding: "1px 5px",
-                    borderRadius: "4px",
-                    letterSpacing: "0.04em",
-                    textTransform: "uppercase",
-                  }}
-                >
+                <span className="text-[9px] font-bold text-zinc-500 bg-zinc-900 border border-zinc-800 px-1.5 py-0.5 rounded tracking-wide uppercase">
                   Admin
                 </span>
               )}
@@ -198,19 +115,20 @@ export function DashboardSidebar({ isAdmin }: { isAdmin: boolean }) {
         })}
       </nav>
 
-      {/* Sidebar footer */}
-      <div
-        style={{
-          padding: "12px 10px",
-          borderRadius: "10px",
-          backgroundColor: "#f8fafc",
-          border: "1px solid #e5e7eb",
-        }}
-      >
-        <p style={{ fontSize: "11px", color: "#9ca3af", margin: "0 0 2px 0" }}>Powered by</p>
-        <p style={{ fontSize: "12px", color: "#6b7280", margin: 0, fontWeight: 500 }}>
-          Clerk · Supabase
-        </p>
+      {/* Sidebar footer sections (Theme toggle mock + watermark) */}
+      <div className="flex flex-col gap-4">
+        {/* Light Mode toggle dummy to match UI mock */}
+        <button className="flex items-center gap-3 px-3 text-sm text-zinc-400 hover:text-zinc-200 transition-colors w-full text-left">
+          <Sun size={18} className="text-zinc-500" />
+          <span>Light Mode</span>
+        </button>
+
+        <div className="p-3 rounded-xl bg-zinc-900/50 border border-zinc-800 mt-2">
+          <p className="text-[10px] text-zinc-500 mb-1 tracking-wide uppercase">Powered by</p>
+          <p className="text-xs font-medium text-zinc-300">
+            Clerk &middot; Supabase
+          </p>
+        </div>
       </div>
     </aside>
   );

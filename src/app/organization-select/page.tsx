@@ -4,73 +4,35 @@ import { OrganizationList } from "@clerk/nextjs";
 
 export default function OrganizationSelectPage() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#f8fafc",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "24px",
-        fontFamily: "inherit",
-      }}
-    >
+    <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center p-6 relative overflow-hidden">
+      {/* Background grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
+      {/* Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/4 rounded-full blur-3xl pointer-events-none" />
+
       {/* Card */}
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          border: "1px solid #e5e7eb",
-          borderRadius: "20px",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
-          padding: "48px 40px",
-          width: "100%",
-          maxWidth: "480px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "28px",
-        }}
-      >
+      <div className="relative z-10 w-full max-w-[480px] bg-[#111111] border border-zinc-800/60 rounded-2xl shadow-2xl p-10 flex flex-col gap-7">
         {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <div
-            style={{
-              width: "28px",
-              height: "28px",
-              borderRadius: "8px",
-              backgroundColor: "#111827",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <span style={{ color: "#fff", fontSize: "12px", fontWeight: 700 }}>D</span>
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-zinc-100 flex items-center justify-center">
+            <span className="text-zinc-900 text-sm font-bold">V</span>
           </div>
-          <span style={{ fontSize: "14px", fontWeight: 600, color: "#374151" }}>DevDash</span>
+          <span className="text-zinc-100 text-base font-semibold tracking-tight">VyorAI</span>
         </div>
 
         {/* Header */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-          <h1
-            style={{
-              fontSize: "24px",
-              fontWeight: 700,
-              color: "#111827",
-              margin: 0,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Select your Organisation
-          </h1>
-          <p style={{ fontSize: "14px", color: "#6b7280", margin: 0, lineHeight: 1.6 }}>
+        <div className="flex flex-col gap-1.5">
+          <h1 className="text-2xl font-semibold text-zinc-100 tracking-tight">Select your Organisation</h1>
+          <p className="text-sm text-zinc-500 leading-relaxed">
             Choose an existing organisation or create a new one to get started.
           </p>
         </div>
 
         {/* Divider */}
-        <div style={{ height: "1px", backgroundColor: "#f3f4f6" }} />
+        <div className="h-px bg-zinc-800/50" />
 
         {/* Info chips */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+        <div className="flex flex-wrap gap-2">
           {[
             { icon: "🏢", label: "Multi-tenant workspace" },
             { icon: "🔐", label: "Role-based access" },
@@ -78,19 +40,9 @@ export default function OrganizationSelectPage() {
           ].map(({ icon, label }) => (
             <div
               key={label}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                padding: "4px 10px",
-                borderRadius: "8px",
-                backgroundColor: "#f8fafc",
-                border: "1px solid #e5e7eb",
-                fontSize: "12px",
-                color: "#6b7280",
-              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900/50 border border-zinc-800 text-xs text-zinc-500"
             >
-              <span style={{ fontSize: "12px" }}>{icon}</span>
+              <span>{icon}</span>
               {label}
             </div>
           ))}
@@ -104,10 +56,10 @@ export default function OrganizationSelectPage() {
         />
 
         {/* Footer */}
-        <p style={{ fontSize: "12px", color: "#9ca3af", margin: 0, textAlign: "center" }}>
+        <p className="text-xs text-zinc-600 text-center">
           Secured by{" "}
-          <span style={{ color: "#6b7280", fontWeight: 500 }}>Clerk</span> ·{" "}
-          <span style={{ color: "#6b7280", fontWeight: 500 }}>Supabase</span>
+          <span className="text-zinc-500 font-medium">Clerk</span> ·{" "}
+          <span className="text-zinc-500 font-medium">Supabase</span>
         </p>
       </div>
     </div>
