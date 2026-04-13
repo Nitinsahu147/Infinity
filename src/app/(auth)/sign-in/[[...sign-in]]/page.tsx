@@ -14,9 +14,9 @@ export default function Page() {
           {/* Logo */}
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-zinc-100 flex items-center justify-center">
-              <span className="text-zinc-900 text-sm font-bold">N</span>
+              <span className="text-zinc-900 text-sm font-bold">V</span>
             </div>
-            <span className="text-zinc-100 text-base font-semibold tracking-tight">NexusAI</span>
+            <span className="text-zinc-100 text-base font-semibold tracking-tight">VyorAI</span>
           </div>
         </div>
 
@@ -46,7 +46,7 @@ export default function Page() {
         </div>
 
         <p className="relative z-10 text-xs text-zinc-700">
-          © {new Date().getFullYear()} NexusAI. All rights reserved.
+          © {new Date().getFullYear()} VyorAI. All rights reserved.
         </p>
       </div>
 
@@ -55,20 +55,13 @@ export default function Page() {
         {/* Mobile-only logo */}
         <div className="flex md:hidden items-center gap-2">
           <div className="w-7 h-7 rounded-xl bg-zinc-100 flex items-center justify-center">
-            <span className="text-zinc-900 text-xs font-bold">N</span>
+            <span className="text-zinc-900 text-xs font-bold">V</span>
           </div>
-          <span className="text-zinc-100 text-sm font-semibold">NexusAI</span>
+          <span className="text-zinc-100 text-sm font-semibold">VyorAI</span>
         </div>
 
         {/* Clerk component */}
         <SignIn />
-
-        {/* Bottom tagline */}
-        <p className="text-xs text-zinc-600 text-center">
-          Secured by{" "}
-          <span className="text-zinc-500 font-medium">Clerk</span> ·{" "}
-          <span className="text-zinc-500 font-medium">Supabase</span>
-        </p>
       </div>
     </div>
   );

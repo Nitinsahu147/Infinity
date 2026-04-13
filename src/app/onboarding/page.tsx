@@ -153,11 +153,11 @@ export default function OnboardingPage() {
         </button>
 
         {/* Footer */}
-        <p className="text-xs text-zinc-600 text-center">
+        {/* <p className="text-xs text-zinc-600 text-center">
           Secured by{" "}
           <span className="text-zinc-500 font-medium">Clerk</span> ·{" "}
           <span className="text-zinc-500 font-medium">Supabase</span>
-        </p>
+        </p> */}
       </div>
     </div>
   );

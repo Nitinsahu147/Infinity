@@ -115,3 +115,30 @@
       @apply animate-pulse bg-zinc-200 dark:bg-zinc-800 rounded;
   }
 }
+
+/* ── Light Mode ─────────────────────────────────────────────────────────── */
+/* CSS invert converts the fully dark-coded UI to light without per-component
+   changes. Images / videos / avatars are re-inverted so they stay natural.  */
+html.light-mode {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+html.light-mode img,
+html.light-mode video,
+html.light-mode [class*="avatar"],
+html.light-mode [class*="Avatar"],
+html.light-mode .cl-userButtonAvatarBox,
+html.light-mode .cl-organizationSwitcherTriggerIcon,
+html.light-mode iframe {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* ── Skeleton pulse guarantee ───────────────────────────────────────────── */
+/* Tailwind v4 may need this defined explicitly */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

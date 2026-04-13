@@ -23,11 +23,7 @@ export default function HomePage() {
 
       {/* Main card */}
       <div className="relative z-10 w-full max-w-[420px] bg-[#111111] border border-zinc-800/60 rounded-2xl shadow-2xl p-10 flex flex-col items-center gap-6">
-        {/* Status badge */}
-        <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-500 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          Multi-Tenant · Clerk + Supabase
-        </div>
+
 
         {/* Heading block */}
         <div className="text-center flex flex-col gap-2">
@@ -72,10 +68,7 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Footer note */}
-        <p className="text-xs text-zinc-600 text-center">
-          Secure authentication via Clerk — your data stays private.
-        </p>
+
       </div>
 
       {/* Feature pills */}
@@ -92,7 +85,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <p className="relative z-10 mt-8 text-xs text-zinc-700">
-        © {new Date().getFullYear()} NexusAI. All rights reserved.
+        © {new Date().getFullYear()} VyorAI. All rights reserved.
       </p>
     </main>
   );

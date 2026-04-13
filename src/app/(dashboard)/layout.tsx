@@ -1,8 +1,9 @@
-import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getOnboardingStatus } from "@/lib/auth/onboarding";
 import { DashboardSidebar } from "./dashboard/DashboardSidebar";
+import { HeaderClientExtras } from "@/components/HeaderClientExtras";
 
 export default async function DashboardLayout({
   children,
@@ -27,24 +28,18 @@ export default async function DashboardLayout({
         {/* Topbar */}
         <header className="bg-[#0A0A0A]/90 backdrop-blur-sm border-b border-zinc-800/60 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
           <div className="flex items-center gap-3">
-            <div className="opacity-90 grayscale-[50%] hover:grayscale-0 hover:opacity-100 transition-all">
-              <OrganizationSwitcher
-                appearance={{
-                  elements: { 
-                    rootBox: { fontSize: "14px" },
-                    organizationSwitcherTrigger: { color: "#e4e4e7" },
-                    organizationSwitcherTriggerIcon: { color: "#71717a" }
-                  },
-                }}
-              />
-            </div>
             {/* Role badge */}
             <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full tracking-wider uppercase ${isAdmin ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20" : "bg-zinc-800/50 text-zinc-400 border border-zinc-700/50"}`}>
               {isAdmin ? "Admin" : "Member"}
             </span>
           </div>
 
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-3">
+             {/* Environment toggle + Command palette trigger */}
+             <HeaderClientExtras />
+
+             <div className="h-6 w-px bg-zinc-800" />
+
              <div className="flex items-center gap-2.5">
                  <span className="text-xs font-semibold text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 rounded-full tracking-wide">Free Plan</span>
                  <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>

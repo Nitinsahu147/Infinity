@@ -4,6 +4,7 @@ import { useAuth, useSession, useReverification } from "@clerk/nextjs";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useEffect, useMemo, useState } from "react";
 import { Key, Lock, RotateCcw, Ban, Copy, Check, AlertTriangle, CheckCircle2, XCircle, ShieldAlert } from "lucide-react";
+import { SkeletonKeyCard } from "@/components/ui/Skeleton";
 
 type ApiKeyRow = {
   id: number;
@@ -28,6 +29,7 @@ export default function ApiKeysPage() {
   const [createdKey, setCreatedKey] = useState<string | null>(null);
   const [keys, setKeys] = useState<ApiKeyRow[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingKeys, setLoadingKeys] = useState(true);
   const [revokingId, setRevokingId] = useState<number | null>(null);
   const [rotatingId, setRotatingId] = useState<number | null>(null);
   const [result, setResult] = useState<any>(null);
@@ -48,6 +50,7 @@ export default function ApiKeysPage() {
   }, [token]);
 
   const fetchKeys = async () => {
+    setLoadingKeys(true);
     const { data, error } = await supabase
       .from("api_keys")
       .select("*")
@@ -55,9 +58,11 @@ export default function ApiKeysPage() {
 
     if (error) {
       setResult({ error: error.message });
+      setLoadingKeys(false);
       return;
     }
     setKeys(data ?? []);
+    setLoadingKeys(false);
   };
 
   useEffect(() => {
@@ -311,7 +316,13 @@ export default function ApiKeysPage() {
         </div>
 
         <div className="p-4 flex flex-col gap-3">
-          {keys.length === 0 ? (
+          {loadingKeys ? (
+            <>
+              <SkeletonKeyCard />
+              <SkeletonKeyCard />
+              <SkeletonKeyCard />
+            </>
+          ) : keys.length === 0 ? (
             <div className="flex flex-col items-center gap-3 py-10 text-center">
               <div className="w-10 h-10 rounded-xl bg-zinc-800/50 border border-zinc-700/50 flex items-center justify-center">
                 <Key size={18} className="text-zinc-600" />
